@@ -1,0 +1,21 @@
+{
+  "name": "ca-municipal-campaign-finance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mkdir -p data && node step-1-download-exports.js && ./step-2-convert-to-json.sh && node step-3-aggregate-to-csv.js && ./step-4-load-to-db.sh && ./step-5-publish-to-heroku.sh",
+    "clean": "rm -rf data",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "CC-BY-SA",
+  "dependencies": {
+    "convert-excel-to-json": "^1.7.0",
+    "d3-dsv": "^2.0.0",
+    "glob": "^7.1.6",
+    "p-queue": "^6.6.1",
+    "puppeteer": "^5.2.1"
+  }
+}

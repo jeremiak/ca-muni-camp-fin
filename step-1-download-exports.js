@@ -1,17 +1,19 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs")
+const path = require("path")
 
-const puppeteer =  require('puppeteer')
-const { default: Queue } = require('p-queue')
+const { timeFormat } = require('d3-time-format')
+const puppeteer = require("puppeteer")
+const { default: Queue } = require("p-queue")
 
-const config = require('./config')
+const config = require("./config")
+const dsMeta = require("./datasette-metadata.json")
 
-const downloadPath = path.join(process.cwd(), 'data')
+const downloadPath = path.join(process.cwd(), "data")
 const queue = new Queue({ concurrency: 2 })
 const yearsEnv = process.env.YEARS
-const years = yearsEnv !== "" ? yearsEnv.split(",") : ["2020"]
+const years = yearsEnv && yearsEnv !== "" ? yearsEnv.split(",") : ["2020"]
 
-console.log(`Downloading exports for ${years.join(', ')}`)
+console.log(`Downloading exports for ${years.join(", ")}`)
 
 async function downloadExport({ aid, year }) {
   const goToUrl = async (u) => {
@@ -42,11 +44,25 @@ async function downloadExport({ aid, year }) {
   // downloading, let's just wait 5 seconds and see if
   // that works for now. shrug
   // const fileName = `${aid}-${year}.zip`
-  await page.waitFor(5000);
-  await browser.close();
+  await page.waitFor(5000)
+  await browser.close()
 }
 
-config.sitesToScrape.forEach(site => {
+async function updateDatasetteMetadata() {
+  const numberOfEntities = config.sitesToScrape.length
+  const now = timeFormat('%b %d, %Y')(new Date())
+  const nextDsMeta = {
+    ...dsMeta,
+    description_html: `Campaign finance filings pulled from <a href="https://github.com/jeremiak/ca-muni-camp-fin/blob/main/config.js#L1">${numberOfEntities} entities</a> on ${now} and updated daily. Compiled by one of <a href="https://www.jeremiak.com">Jeremia's</a> robots.`,
+  }
+
+  await fs.promises.writeFile(
+    "./datasette-metadata.json",
+    JSON.stringify(nextDsMeta, null, 2)
+  )
+}
+
+config.sitesToScrape.forEach((site) => {
   const { aid, entity } = site
   years.forEach((year) => {
     queue.add(async () => {
@@ -60,7 +76,9 @@ config.sitesToScrape.forEach(site => {
   })
 })
 
-queue.onIdle().then(() => {
+queue.onIdle().then(async () => {
+  await updateDatasetteMetadata()
+
   console.log(`Step 1 done!`)
   process.exit(0)
 })

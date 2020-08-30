@@ -1,11 +1,27 @@
 const sitesToScrape = [
   {
-    entity: "Alameda County",
+    entity: "Adelanto",
+    aid: "ADE",
+  },
+  {
+    entity: "Alameda",
     aid: "COA",
   },
   {
     entity: "Anaheim",
     aid: "ANA",
+  },
+  {
+    entity: "Antioch",
+    aid: "ANT",
+  },
+  {
+    entity: "Arroyo Grande",
+    aid: "CAG",
+  },
+  {
+    entity: "Azusa",
+    aid: "AZU",
   },
   {
     entity: "Berkeley",
@@ -18,6 +34,10 @@ const sitesToScrape = [
   {
     entity: "Butte County",
     aid: "BCO",
+  },
+  {
+    entity: "Calistoga",
+    aid: "CAL",
   },
   {
     entity: "Capitola City",
@@ -40,16 +60,68 @@ const sitesToScrape = [
     aid: "CCV",
   },
   {
+    entity: "Colton",
+    aid: "COL",
+  },
+  {
     entity: "Contra Costa County",
     aid: "CCC",
+  },
+  {
+    entity: "Coronado",
+    aid: "COR",
+  },
+  {
+    entity: "Cotati",
+    aid: "COT",
   },
   {
     entity: "Covina",
     aid: "CVN",
   },
   {
+    entity: "Culver City",
+    aid: "CUL",
+  },
+  {
+    entity: "Del Norte",
+    aid: "DEL",
+  },
+  {
+    entity: "Desert Hot Springs",
+    aid: "DHS",
+  },
+  {
+    entity: "Dublin",
+    aid: "DUB",
+  },
+  {
+    entity: "East Palo Alto",
+    aid: "EPA",
+  },
+  {
+    entity: "Eastville",
+    aid: "ESV",
+  },
+  {
+    entity: "Escondido",
+    aid: "ESC",
+  },
+  {
+    entity: "Fremont",
+    aid: "FRE",
+  },
+  {
     entity: "Fresno",
     aid: "COF",
+  },
+  {
+    entity: "Fullerton",
+    aid: "FUL",
+  },
+  {
+    entity: "Garden Grove",
+    aid: "GGV",
   },
   {
     entity: "Gilroy",
@@ -64,12 +136,32 @@ const sitesToScrape = [
     aid: "COG",
   },
   {
+    entity: "Half Moon Bay",
+    aid: "HMB",
+  },
+  {
     entity: "Hayward",
     aid: "HWD",
   },
   {
+    entity: "Hesperia",
+    aid: "HES",
+  },
+  {
+    entity: "Hollister",
+    aid: "HOL",
+  },
+  {
+    entity: "Hill Valley",
+    aid: "CHV",
+  },
+  {
     entity: "Huntington Beach",
     aid: "CHB",
+  },
+  {
+    entity: "Indio",
+    aid: "IND",
   },
   {
     entity: "Irvine",
@@ -80,8 +172,16 @@ const sitesToScrape = [
     aid: "KERN",
   },
   {
+    entity: "Lancaster",
+    aid: "LAN",
+  },
+  {
     entity: "Laguna Niguel",
     aid: "CLN",
+  },
+  {
+    entity: "Lake Elsinore",
+    aid: "LES",
   },
   {
     entity: "Lake Forest",
@@ -92,8 +192,16 @@ const sitesToScrape = [
     aid: "LIV",
   },
   {
+    entity: "Los Gatos",
+    aid: "GAT",
+  },
+  {
     entity: "Madera County",
     aid: "MAD",
+  },
+  {
+    entity: "Manhattan Beach",
+    aid: "CMB",
   },
   {
     entity: "Manteca",
@@ -104,8 +212,28 @@ const sitesToScrape = [
     aid: "CMAR",
   },
   {
-    entity: "Monterey County",
+    entity: "Menifee",
+    aid: "MEN",
+  },
+  {
+    entity: "Menlo Park",
+    aid: "CMP",
+  },
+  {
+    entity: "Milpitas",
+    aid: "MIL",
+  },
+  {
+    entity: "Modesto",
+    aid: "MOD",
+  },
+  {
+    entity: "Monterey",
     aid: "COM",
+  },
+  {
+    entity: "Monterey County",
+    aid: "MCE",
   },
   {
     entity: "Mountain View",
@@ -124,12 +252,24 @@ const sitesToScrape = [
     aid: "MGH",
   },
   {
+    entity: "Newport Beach",
+    aid: "CNB",
+  },
+  {
     entity: "Nevada County",
     aid: "NEV",
   },
   {
+    entity: "Numainville",
+    aid: "NUM",
+  },
+  {
     entity: "Oakland",
     aid: "COAK",
+  },
+  {
+    entity: "Oakley",
+    aid: "OAK",
   },
   {
     entity: "Oceanside",
@@ -138,6 +278,14 @@ const sitesToScrape = [
   {
     entity: "Orange County",
     aid: "COC",
+  },
+  {
+    entity: "Oroville",
+    aid: "ORO",
+  },
+  {
+    entity: "Palm Springs",
+    aid: "CPS",
   },
   {
     entity: "Palo Alto",
@@ -152,6 +300,10 @@ const sitesToScrape = [
     aid: "PTSN",
   },
   {
+    entity: "Perris",
+    aid: "PRS",
+  },
+  {
     entity: "Placer County",
     aid: "PLA",
   },
@@ -162,6 +314,14 @@ const sitesToScrape = [
   {
     entity: "Rancho Cucamonga",
     aid: "CRC",
+  },
+  {
+    entity: "Redding",
+    aid: "RED",
+  },
+  {
+    entity: "Redondo Beach",
+    aid: "CRB",
   },
   {
     entity: "Rialto",
@@ -196,12 +356,20 @@ const sitesToScrape = [
     aid: "SBD",
   },
   {
-    entity: "San Diego County",
+    entity: "San Bruno",
+    aid: "BRU",
+  },
+  {
+    entity: "San Diego",
     aid: "CSD",
   },
   {
     entity: "San Dimas",
     aid: "SDM",
+  },
+  {
+    entity: "San Gabriel",
+    aid: "CSG",
   },
   {
     entity: "San Francisco",
@@ -228,6 +396,10 @@ const sitesToScrape = [
     aid: "MAT",
   },
   {
+    entity: "San Rafael",
+    aid: "RAF",
+  },
+  {
     entity: "Santa Ana",
     aid: "CSA",
   },
@@ -252,6 +424,10 @@ const sitesToScrape = [
     aid: "SCCO",
   },
   {
+    entity: "Santa Fe Springs",
+    aid: "SFS",
+  },
+  {
     entity: "Santa Maria",
     aid: "SMAR",
   },
@@ -264,6 +440,10 @@ const sitesToScrape = [
     aid: "CSR",
   },
   {
+    entity: "Santee",
+    aid: "STE",
+  },
+  {
     entity: "Sausalito",
     aid: "SAU",
   },
@@ -272,12 +452,24 @@ const sitesToScrape = [
     aid: "CSHA",
   },
   {
+    entity: "Sonoma",
+    aid: "SMA",
+  },
+  {
     entity: "Stockton",
     aid: "STO",
   },
   {
     entity: "Sunnyvale",
     aid: "COS",
+  },
+  {
+    entity: "Temecula",
+    aid: "TEM",
+  },
+  {
+    entity: "Torrance",
+    aid: "TOR",
   },
   {
     entity: "Ventura",
@@ -290,6 +482,10 @@ const sitesToScrape = [
   {
     entity: "Victorville",
     aid: "VIC",
+  },
+  {
+    entity: "Watsonville",
+    aid: "WAT",
   },
   {
     entity: "West Hollywood",
@@ -305,7 +501,7 @@ const sitesToScrape = [
   },
   {
     entity: "Yountville",
-    aid: "TOV",
+    aid: "TOY",
   },
 ]
 

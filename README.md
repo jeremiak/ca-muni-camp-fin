@@ -1,6 +1,6 @@
 # CA municipal campaign finance
 
-Publishing campaign finance filings from around California as an API. You can see all of the entities from which we scrape filings in [`config.js`](config.js).
+Scrape campaign finance filings from around California and publish as an API. You can see all of the entities from which we scrape filings in [`config.js`](config.js).
 
 ## Running the scripts
 
@@ -20,3 +20,9 @@ You can determine which years will be downloaded from each municipality/entity b
 ### Updating the public database
 
 There's a public Heroku instance where this data gets updated once a day. That is done automatically with `step-5-publish-to-heroku.sh`.
+
+### Running datasette locally
+
+Datasette is a really wonderful tool and sometimes its just easier/faster to run it locally. If that's the case, you can do so with:
+
+```datasette serve --metadata datasette-metadata.json filings.db```

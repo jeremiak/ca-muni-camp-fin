@@ -1,1 +1,1 @@
-datasette publish heroku --name ca-muni-camp-fin filings.db
+datasette publish heroku --metadata datasette-metadata.json --name ca-muni-camp-fin filings.db

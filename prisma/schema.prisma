@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:data.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MunicipalAgency {
+  id                     String                  @id @default(uuid())
+  name                   String?
+  stringId               String
+  url                    String?
+  filers                 Filer[]
+  scheduleAContributions ScheduleAContribution[]
+  ScheduleCContribution  ScheduleCContribution[]
+}
+
+model Filer {
+  id                     String                  @id @default(uuid())
+  name                   String
+  committeeType          String
+  agencies               MunicipalAgency[]
+  scheduleAContributions ScheduleAContribution[]
+  ScheduleCContribution  ScheduleCContribution[]
+}
+
+model ScheduleAContribution {
+  id String @id @default(uuid())
+
+  transactionId String
+  date          DateTime
+  amount        Float
+  description   String
+
+  contributorType         String
+  contributorLastName     String
+  contributorFirstName    String
+  contributorPrefix       String
+  contributorSuffix       String
+  contributorAddress1     String
+  contributorAddress2     String
+  contributorCity         String
+  contributorState        String
+  contributorZip          String
+  contributorOccupation   String
+  contributorEmployer     String
+  contributorSelfEmployed Boolean
+
+  reportNumber   Int
+  reportDate     DateTime
+  reportFromDate DateTime
+  reportThruDate DateTime
+
+  filer   Filer  @relation(fields: [filerId], references: [id])
+  filerId String
+
+  agency   MunicipalAgency @relation(fields: [agencyId], references: [id])
+  agencyId String
+}
+
+model ScheduleCContribution {
+  id            String @id @default(uuid())
+  transactionId String @unique
+
+  date        DateTime
+  amount      Float
+  description String
+
+  contributorType         String
+  contributorLastName     String
+  contributorFirstName    String
+  contributorAddress1     String
+  contributorAddress2     String
+  contributorCity         String
+  contributorState        String
+  contributorZip          String
+  contributorOccupation   String
+  contributorEmployer     String
+  contributorSelfEmployed Boolean
+  contributorCommitteeId  String?
+
+  reportNumber   Int
+  reportDate     DateTime
+  reportFromDate DateTime
+  reportThruDate DateTime
+
+  filer   Filer  @relation(fields: [filerId], references: [id])
+  filerId String
+
+  agency   MunicipalAgency @relation(fields: [agencyId], references: [id])
+  agencyId String
+}

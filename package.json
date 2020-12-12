@@ -1,0 +1,24 @@
+{
+  "name": "ca-municipal-campaign-finance",
+  "version": "1.0.0",
+  "description": "FPPC data from cities, counties, and other municipal agencies from across California",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "datasette": "datasette serve --metadata datasette.json prisma/data.db",
+    "publish": "datasette publish heroku --metadata datasette.json --name ca-muni-camp-fin prisma/data.db",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "CC-BY-SA",
+  "dependencies": {
+    "@prisma/client": "^2.13.0",
+    "convert-excel-to-json": "^1.7.0",
+    "p-queue": "^6.6.2",
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.13.0"
+  }
+}

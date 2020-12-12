@@ -1,0 +1,41 @@
+const fs = require("fs").promises
+
+const { default: Queue } = require("p-queue")
+
+const datasette = require("./datasette.json")
+const netfile = require("./strategies/netfile")
+
+const queue = new Queue({ concurrency: 2 })
+const config = require("./config.js")
+const { sitesToScrape } = config
+
+const startTime = new Date()
+console.log(`Starting at ${startTime}`)
+
+const year = "2020"
+sitesToScrape.forEach((site) => {
+  const { entity: agencyName, vendor, vendorId: agencyId } = site
+
+  if (vendor === "netfile") {
+    queue.add(async () => {
+      await netfile({ agencyName, agencyId, year })
+      return
+    })
+  }
+})
+
+queue.onIdle().then(async () => {
+  const endTime = new Date()
+  const duration = endTime - startTime
+  console.log(`Finished at ${endTime}, took ${duration}`)
+
+  const formattedEndDate = `${endTime.getFullYear()}-${
+    endTime.getMonth() + 1
+  }-${endTime.getDate()}`
+
+  datasette.description = `${datasette.description}. Last updated on ${formattedEndDate}.`
+
+  await fs.writeFile("./datasette.json", JSON.stringify(datasette, null, 2))
+
+  process.exit(0)
+})

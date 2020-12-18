@@ -1,0 +1,1 @@
+web: datasette serve --host 0.0.0.0 -i data.db --cors --port $PORT --inspect-file inspect-data.json --metadata metadata.json --setting sql_time_limit_ms 5000

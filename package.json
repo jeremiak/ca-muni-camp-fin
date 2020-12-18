@@ -4,9 +4,10 @@
   "description": "FPPC data from cities, counties, and other municipal agencies from across California",
   "main": "index.js",
   "scripts": {
+    "all": "npm run start && npm run publish",
     "start": "node index",
     "datasette": "datasette serve --metadata datasette.json prisma/data.db",
-    "publish": "datasette publish heroku --metadata datasette.json --name ca-muni-camp-fin prisma/data.db",
+    "publish": "datasette publish heroku --metadata datasette.json --name ca-muni-camp-fin --extra-options \"--setting sql_time_limit_ms 5000\" prisma/data.db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

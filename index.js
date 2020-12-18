@@ -33,7 +33,10 @@ queue.onIdle().then(async () => {
     endTime.getMonth() + 1
   }-${endTime.getDate()}`
 
-  datasette.description = `${datasette.description}. Last updated on ${formattedEndDate}.`
+  datasette.description = datasette.description.replace(
+    /\d{4}-\d{1,2}-\d{1,2}\.$/,
+    `${formattedEndDate}.`
+  )
 
   await fs.writeFile("./datasette.json", JSON.stringify(datasette, null, 2))
 

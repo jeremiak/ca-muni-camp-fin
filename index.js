@@ -2,7 +2,7 @@ const fs = require("fs").promises
 
 const { default: Queue } = require("p-queue")
 
-// const datasette = require("./datasette.json")
+const datasette = require("./datasette.json")
 const netfile = require("./strategies/netfile")
 
 const queue = new Queue({ concurrency: 2 })
@@ -42,12 +42,12 @@ queue.onIdle().then(async () => {
     endTime.getMonth() + 1
   }-${endTime.getDate()}`
 
-  // datasette.description = datasette.description.replace(
-  //   /\d{4}-\d{1,2}-\d{1,2}\.$/,
-  //   `${formattedEndDate}.`
-  // )
+  datasette.description = datasette.description.replace(
+    /\d{4}-\d{1,2}-\d{1,2}\.$/,
+    `${formattedEndDate}.`
+  )
 
-  // await fs.writeFile("./datasette.json", JSON.stringify(datasette, null, 2))
+  await fs.writeFile("./datasette.json", JSON.stringify(datasette, null, 2))
 
   process.exit(0)
 })

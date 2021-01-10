@@ -15,10 +15,10 @@ async function main({ agencyName, agencyId, year }) {
   console.log(`Ok, running for ${f}`)
   await exec(`mkdir -p tmp`)
 
-  console.log(`Skipping all downloads for now`)
-  // console.log(`Downloading ${f}...`)
-  // await download(opts)
-  // console.log(`Downloaded ${f}`)
+  // console.log(`Skipping all downloads for now`)
+  console.log(`Downloading ${f}...`)
+  await download(opts)
+  console.log(`Downloaded ${f}`)
 
   console.log(`Extracting ${f}...`)
   try {

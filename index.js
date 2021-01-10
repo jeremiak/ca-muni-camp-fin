@@ -16,6 +16,8 @@ const year = "2020"
 sitesToScrape.forEach((site) => {
   const { entity: agencyName, vendor, vendorId: agencyId } = site
 
+  // if (agencyId !== "SAC") return
+
   if (vendor === "netfile") {
     queue.add(async () => {
       await netfile({ agencyName, agencyId, year })

@@ -18,6 +18,7 @@ model MunicipalAgency {
   filers                 Filer[]
   scheduleAContributions ScheduleAContribution[]
   ScheduleCContribution  ScheduleCContribution[]
+  ScheduleEPayment       ScheduleEPayment[]
 }
 
 model Filer {
@@ -27,10 +28,12 @@ model Filer {
   agencies               MunicipalAgency[]
   scheduleAContributions ScheduleAContribution[]
   ScheduleCContribution  ScheduleCContribution[]
+  ScheduleEPayment       ScheduleEPayment[]
 }
 
 model ScheduleAContribution {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
 
   transactionId String
   date          DateTime
@@ -40,21 +43,20 @@ model ScheduleAContribution {
   contributorType         String
   contributorLastName     String
   contributorFirstName    String
-  contributorPrefix       String
-  contributorSuffix       String
-  contributorAddress1     String
-  contributorAddress2     String
-  contributorCity         String
-  contributorState        String
-  contributorZip          String
-  contributorOccupation   String
-  contributorEmployer     String
-  contributorSelfEmployed Boolean
+  contributorAddress1     String?
+  contributorAddress2     String?
+  contributorCity         String?
+  contributorState        String?
+  contributorZip          String?
+  contributorOccupation   String?
+  contributorEmployer     String?
+  contributorSelfEmployed Boolean?
+  contributorCommitteeId  String?
 
-  reportNumber   Int
-  reportDate     DateTime
-  reportFromDate DateTime
-  reportThruDate DateTime
+  reportNumber   Int?
+  reportDate     DateTime?
+  reportFromDate DateTime?
+  reportThruDate DateTime?
 
   filer   Filer  @relation(fields: [filerId], references: [id])
   filerId String
@@ -64,6 +66,39 @@ model ScheduleAContribution {
 }
 
 model ScheduleCContribution {
+  id            String @id @default(uuid())
+  transactionId String @unique
+
+  date        DateTime
+  amount      Float
+  description String
+
+  contributorType         String
+  contributorLastName     String
+  contributorFirstName    String
+  contributorAddress1     String?
+  contributorAddress2     String?
+  contributorCity         String?
+  contributorState        String?
+  contributorZip          String?
+  contributorOccupation   String?
+  contributorEmployer     String?
+  contributorSelfEmployed Boolean?
+  contributorCommitteeId  String?
+
+  reportNumber   Int?
+  reportDate     DateTime?
+  reportFromDate DateTime?
+  reportThruDate DateTime?
+
+  filer   Filer  @relation(fields: [filerId], references: [id])
+  filerId String
+
+  agency   MunicipalAgency @relation(fields: [agencyId], references: [id])
+  agencyId String
+}
+
+model ScheduleEPayment {
   id            String @id @default(uuid())
   transactionId String @unique
 

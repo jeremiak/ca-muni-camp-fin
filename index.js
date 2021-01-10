@@ -16,7 +16,7 @@ const year = "2020"
 sitesToScrape.forEach((site) => {
   const { entity: agencyName, vendor, vendorId: agencyId } = site
 
-  if (agencyId !== "SAC") return
+  // if (agencyId !== "SAC") return
 
   if (vendor === "netfile") {
     queue.add(async () => {
@@ -32,7 +32,11 @@ queue.onIdle().then(async () => {
   const durationSec = durationMs / 1000
   const durationMin = durationSec / 60
 
-  console.log(`Finished at ${endTime}, took about ${Math.ceil(durationMin)} minute${Math.ceil(durationMin) !== 1 ? 's' : ''}`)
+  console.log(
+    `Finished at ${endTime}, took about ${Math.ceil(durationMin)} minute${
+      Math.ceil(durationMin) !== 1 ? "s" : ""
+    }`
+  )
 
   const formattedEndDate = `${endTime.getFullYear()}-${
     endTime.getMonth() + 1

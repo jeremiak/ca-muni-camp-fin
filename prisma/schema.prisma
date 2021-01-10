@@ -36,7 +36,7 @@ model ScheduleAContribution {
   createdAt DateTime @default(now())
 
   transactionId String
-  date          DateTime
+  date          String
   amount        Float
   description   String
 
@@ -54,9 +54,9 @@ model ScheduleAContribution {
   contributorCommitteeId  String?
 
   reportNumber   Int?
-  reportDate     DateTime?
-  reportFromDate DateTime?
-  reportThruDate DateTime?
+  reportDate     String?
+  reportFromDate String?
+  reportThruDate String?
 
   filer   Filer  @relation(fields: [filerId], references: [id])
   filerId String
@@ -69,7 +69,7 @@ model ScheduleCContribution {
   id            String @id @default(uuid())
   transactionId String @unique
 
-  date        DateTime
+  date        String
   amount      Float
   description String
 
@@ -87,9 +87,9 @@ model ScheduleCContribution {
   contributorCommitteeId  String?
 
   reportNumber   Int?
-  reportDate     DateTime?
-  reportFromDate DateTime?
-  reportThruDate DateTime?
+  reportDate     String?
+  reportFromDate String?
+  reportThruDate String?
 
   filer   Filer  @relation(fields: [filerId], references: [id])
   filerId String
@@ -102,27 +102,25 @@ model ScheduleEPayment {
   id            String @id @default(uuid())
   transactionId String @unique
 
-  date        DateTime
+  date        String
   amount      Float
   description String
+  code        String
 
-  contributorType         String
-  contributorLastName     String
-  contributorFirstName    String
-  contributorAddress1     String
-  contributorAddress2     String
-  contributorCity         String
-  contributorState        String
-  contributorZip          String
-  contributorOccupation   String
-  contributorEmployer     String
-  contributorSelfEmployed Boolean
-  contributorCommitteeId  String?
+  payeeType         String
+  payeeLastName     String
+  payeeFirstName    String?
+  payeeAddress1     String?
+  payeeAddress2     String?
+  payeeCity         String?
+  payeeState        String?
+  payeeZip          String?
+  payeeCommitteeId  String?
 
-  reportNumber   Int
-  reportDate     DateTime
-  reportFromDate DateTime
-  reportThruDate DateTime
+  reportNumber   Int?
+  reportDate     String?
+  reportFromDate String?
+  reportThruDate String?
 
   filer   Filer  @relation(fields: [filerId], references: [id])
   filerId String

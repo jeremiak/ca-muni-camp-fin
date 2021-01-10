@@ -1,11 +1,12 @@
 const excelToJson = require("convert-excel-to-json")
+const { timeFormat }  = require('d3-time-format')
 const { default: Queue } = require("p-queue")
 const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient()
 const queue = new Queue({ concurrency: 2 })
 
-const contributorTypeMapping = {
+const entityTypeMapping = {
   COM: "committee",
   RCP: "recipient-committee",
   IND: "individual",
@@ -14,7 +15,9 @@ const contributorTypeMapping = {
   SCC: "small-contributor-committee",
 }
 
-function getScheduleContributionId({
+const formatDate = timeFormat('%Y-%m-%d')
+
+function getTransactionId({
   agencyStringId,
   fppcId,
   reportNumber,
@@ -113,8 +116,8 @@ async function createOrIgnoreScheduleA(contribution, agency) {
     AG: contributorCommitteeId,
     O: contributorLastName,
     P: contributorFirstName,
-    Q: contributorPrefix,
-    R: contributorSuffix,
+    // Q: contributorPrefix,
+    // R: contributorSuffix,
     S: contributorAddress1,
     T: contributorAddress2,
     U: contributorCity,
@@ -125,7 +128,7 @@ async function createOrIgnoreScheduleA(contribution, agency) {
     Z: contributorSelfEmployed,
   } = contribution
 
-  const contributionId = getScheduleContributionId({
+  const contributionId = getTransactionId({
     agencyStringId: agency.stringId,
     fppcId,
     reportNumber,
@@ -147,20 +150,19 @@ async function createOrIgnoreScheduleA(contribution, agency) {
     await connectFilerToAgency(filer, agency)
   }
 
+
   try {
     await prisma.scheduleAContribution.create({
       data: {
         id: contributionId,
         transactionId,
-        date,
+        date: formatDate(date),
         amount,
         description,
-        contributorType: contributorTypeMapping[contributorType],
+        contributorType: entityTypeMapping[contributorType],
         contributorCommitteeId,
         contributorLastName,
         contributorFirstName,
-        contributorPrefix,
-        contributorSuffix,
         contributorAddress1,
         contributorAddress2,
         contributorCity,
@@ -170,9 +172,9 @@ async function createOrIgnoreScheduleA(contribution, agency) {
         contributorEmployer,
         contributorSelfEmployed: contributorSelfEmployed === "y",
         reportNumber: +reportNumber,
-        reportDate,
-        reportFromDate,
-        reportThruDate,
+        reportDate: formatDate(reportDate),
+        reportFromDate: formatDate(reportFromDate),
+        reportThruDate: formatDate(reportThruDate),
         filer: {
           connect: { id: filer.id },
         },
@@ -223,7 +225,7 @@ async function createOrIgnoreScheduleC(contribution, agency) {
     Z: contributorSelfEmployed,
   } = contribution
 
-  const contributionId = getScheduleContributionId({
+  const contributionId = getTransactionId({
     agencyStringId: agency.stringId,
     fppcId,
     reportNumber,
@@ -250,10 +252,10 @@ async function createOrIgnoreScheduleC(contribution, agency) {
       data: {
         id: contributionId,
         transactionId,
-        date,
+        date: formatDate(date),
         amount,
         description,
-        contributorType: contributorTypeMapping[contributorType],
+        contributorType: entityTypeMapping[contributorType],
         contributorLastName,
         contributorFirstName,
         contributorAddress1,
@@ -266,9 +268,9 @@ async function createOrIgnoreScheduleC(contribution, agency) {
         contributorSelfEmployed: contributorSelfEmployed === "y",
         contributorCommitteeId,
         reportNumber: +reportNumber,
-        reportDate,
-        reportFromDate,
-        reportThruDate,
+        reportDate: formatDate(reportDate),
+        reportFromDate: formatDate(reportFromDate),
+        reportThruDate: formatDate(reportThruDate),
         filer: {
           connect: { id: filer.id },
         },
@@ -290,6 +292,96 @@ async function createOrIgnoreScheduleC(contribution, agency) {
   console.log(`Saved contribution ${contributionId}`)
 }
 
+async function createOrIgnoreScheduleE(payment, agency) {
+  const {
+    A: fppcId,
+    B: filerName,
+    C: reportNumber,
+    D: committeeType,
+    E: reportDate,
+    F: reportFromDate,
+    G: reportThruDate,
+    M: transactionId,
+    N: payeeType,
+    X: date,
+    Y: amount,
+    O: payeeLastName,
+    P: payeeFirstName,
+    S: payeeAddress1,
+    T: payeeAddress2,
+    U: payeeCity,
+    V: payeeState,
+    W: payeeZip,
+    AB: code,
+    AC: description,
+    AH: payeeCommitteeId,
+  } = payment
+
+  const paymentId = getTransactionId({
+    agencyStringId: agency.stringId,
+    fppcId,
+    reportNumber,
+    reportDate,
+    transactionId,
+  })
+
+  const filer = await findOrCreateFiler({
+    committeeType,
+    id: fppcId,
+    name: filerName,
+  })
+  const matchingAgency =
+    filer.agencies &&
+    filer.agencies.find((a) => {
+      return a.stringId === agency.id
+    })
+  if (!matchingAgency) {
+    await connectFilerToAgency(filer, agency)
+  }
+
+  try {
+    await prisma.scheduleEPayment.create({
+      data: {
+        id: paymentId,
+        transactionId,
+        date: formatDate(date),
+        amount,
+        description,
+        code,
+        payeeType: entityTypeMapping[payeeType],
+        payeeLastName,
+        payeeFirstName,
+        payeeAddress1,
+        payeeAddress2,
+        payeeCity,
+        payeeState,
+        payeeZip: payeeZip.replace(/-$/, ""),
+        payeeCommitteeId,
+        reportNumber: +reportNumber,
+        reportDate: formatDate(reportDate),
+        reportFromDate: formatDate(reportFromDate),
+        reportThruDate: formatDate(reportThruDate),
+        filer: {
+          connect: { id: filer.id },
+        },
+        agency: {
+          connect: { id: agency.id },
+        },
+      },
+    })
+  } catch (e) {
+    if (e.code === "P2002") {
+      // uniqueness constraint failed, transaction already added
+      return
+    }
+
+    console.error(e)
+    debugger
+  }
+
+  console.log(`Saved payment ${paymentId}`)
+}
+
 async function loadNetfile({ agencyName, agencyId, year }) {
   const excelFile = `./tmp/efile_${agencyId}_${year}.xlsx`
 
@@ -298,7 +390,7 @@ async function loadNetfile({ agencyName, agencyId, year }) {
     header: {
       rows: 1,
     },
-    sheets: ["A-Contributions", "C-Contributions"],
+    sheets: ["A-Contributions", "C-Contributions", "E-Expenditure"],
   })
 
   const agency = await findOrCreateAgency({
@@ -315,6 +407,12 @@ async function loadNetfile({ agencyName, agencyId, year }) {
   data["C-Contributions"].forEach((contribution) => {
     queue.add(async () => {
       await createOrIgnoreScheduleC(contribution, agency)
+    })
+  })
+
+  data["E-Expenditure"].forEach((payment) => {
+    queue.add(async () => {
+      await createOrIgnoreScheduleE(payment, agency)
     })
   })
 

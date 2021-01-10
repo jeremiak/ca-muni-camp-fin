@@ -634,141 +634,141 @@ const sitesToScrape = [
     vendorId: "TOY",
     vendor: "netfile",
   },
-  {
-    entity: "",
-    vendorId: "ACW",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "AGH",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "CPD",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "CSL",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "CVN",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "DCA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "DOW",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "DPR",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "DWA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "ETR",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "FRI",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "GCH",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "LAC",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "MCO",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "MGL",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "MPC",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "OES",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "OHF",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "OSI",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "RCA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "RTA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "SAM",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "CCA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "CML",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "SHA",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "TIB",
-    vendor: "netfile",
-  },
-  {
-    entity: "",
-    vendorId: "WLD",
-    vendor: "netfile",
-  },
+  // {
+  //   entity: "",
+  //   vendorId: "ACW",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "AGH",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "CPD",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "CSL",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "CVN",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "DCA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "DOW",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "DPR",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "DWA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "ETR",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "FRI",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "GCH",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "LAC",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "MCO",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "MGL",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "MPC",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "OES",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "OHF",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "OSI",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "RCA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "RTA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "SAM",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "CCA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "CML",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "SHA",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "TIB",
+  //   vendor: "netfile",
+  // },
+  // {
+  //   entity: "",
+  //   vendorId: "WLD",
+  //   vendor: "netfile",
+  // },
 ]
 
 module.exports = { sitesToScrape }

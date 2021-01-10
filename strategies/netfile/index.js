@@ -25,7 +25,11 @@ async function main({ agencyName, agencyId, year }) {
     await extract(opts)
     console.log(`Extracted ${f}`)
   } catch (e) {
-    console.error(`Error with extaction`, e.code)
+    if (e.code === 9) {
+      console.log(`Problem extracting ${f}, skipping it`)
+    } else {
+      console.error(`Error with extaction`, e.code)
+    }
     return
   }
 

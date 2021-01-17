@@ -12,7 +12,7 @@ const sitesToScrape = [
   {
     entity: "Anaheim",
     vendorId: "ANA",
-    vendor: "netfile",
+    vendor: "netfile", 
   },
   {
     entity: "Antioch",
@@ -240,9 +240,14 @@ const sitesToScrape = [
     vendor: "netfile",
   },
   {
+    entity: 'Los Angeles',
+    vendorId: 'LAX',
+    vendor: 'la-city',
+  },
+  {
     entity: "Los Angeles County",
-    vendorId: "GAT",
-    vendor: "traccer",
+    vendorId: "LAC",
+    vendor: "la-county",
   },
   {
     entity: "Los Gatos",

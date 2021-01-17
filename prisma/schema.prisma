@@ -12,6 +12,7 @@ generator client {
 
 model MunicipalAgency {
   id                     String                  @id @default(uuid())
+  createdAt DateTime @default(now())
   name                   String?
   stringId               String
   url                    String?
@@ -23,24 +24,26 @@ model MunicipalAgency {
 
 model Filer {
   id                     String                  @id @default(uuid())
+  createdAt DateTime @default(now())
   name                   String
-  committeeType          String
+  committeeType          String?
   agencies               MunicipalAgency[]
   scheduleAContributions ScheduleAContribution[]
-  ScheduleCContribution  ScheduleCContribution[]
-  ScheduleEPayment       ScheduleEPayment[]
+  ScheduleCContributions  ScheduleCContribution[]
+  ScheduleEPayments       ScheduleEPayment[]
 }
 
 model ScheduleAContribution {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
-  transactionId String
+  transactionId String?
   date          String
   amount        Float
   description   String
 
   contributorType         String
+  contributorCommitteeId  String?
   contributorLastName     String
   contributorFirstName    String
   contributorAddress1     String?
@@ -51,7 +54,6 @@ model ScheduleAContribution {
   contributorOccupation   String?
   contributorEmployer     String?
   contributorSelfEmployed Boolean?
-  contributorCommitteeId  String?
 
   reportNumber   Int?
   reportDate     String?
@@ -67,13 +69,15 @@ model ScheduleAContribution {
 
 model ScheduleCContribution {
   id            String @id @default(uuid())
-  transactionId String @unique
+  createdAt DateTime @default(now())
 
+  transactionId String @unique
   date        String
   amount      Float
   description String
 
   contributorType         String
+  contributorCommitteeId  String?
   contributorLastName     String
   contributorFirstName    String
   contributorAddress1     String?
@@ -84,7 +88,6 @@ model ScheduleCContribution {
   contributorOccupation   String?
   contributorEmployer     String?
   contributorSelfEmployed Boolean?
-  contributorCommitteeId  String?
 
   reportNumber   Int?
   reportDate     String?
@@ -100,8 +103,9 @@ model ScheduleCContribution {
 
 model ScheduleEPayment {
   id            String @id @default(uuid())
-  transactionId String @unique
+  createdAt DateTime @default(now())
 
+  transactionId String @unique
   date        String
   amount      Float
   description String

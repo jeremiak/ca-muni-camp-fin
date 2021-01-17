@@ -3,7 +3,10 @@ const fs = require("fs").promises
 const { default: Queue } = require("p-queue")
 
 // const datasette = require("./datasette.json")
+const laCity = require('./strategies/la-city')
+// const laCounty = require('./strategies/la-county')
 const netfile = require("./strategies/netfile")
+
 
 const queue = new Queue({ concurrency: 2 })
 const config = require("./config.js")
@@ -16,11 +19,20 @@ const year = "2020"
 sitesToScrape.forEach((site) => {
   const { entity: agencyName, vendor, vendorId: agencyId } = site
 
-  if (agencyId !== "SAC") return
+  // if (agencyId !== "LAX") return
 
   if (vendor === "netfile") {
     queue.add(async () => {
       await netfile({ agencyName, agencyId, year })
+      return
+    })
+  } else if (agencyId === 'LAX') {
+    queue.add(async () => {
+      // LA city has a progress bar, so for nicer display the queue gets paused when LA starts and
+      // then will get resumed into multi-worker mode once LA is done
+      queue.pause()
+      await laCity()
+      queue.start()
       return
     })
   }
